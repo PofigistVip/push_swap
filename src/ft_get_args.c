@@ -31,7 +31,7 @@ int					ft_get_args(t_stack *a, t_checker_options *opt)
 				return (0);
 			ft_stack_push(a, numb);
 		}
-		else if (ft_strcmp(opt->arguments[i], "-d") == 0)
+		else if (opt->is_checker && ft_strcmp(opt->arguments[i], "-d") == 0)
 			opt->debug = 1;
 		else
 		{

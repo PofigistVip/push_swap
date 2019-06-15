@@ -5,6 +5,7 @@
 
 typedef struct	s_checker_options
 {
+	int		is_checker;
 	int		argc;
 	char	**arguments;
 	int		debug;

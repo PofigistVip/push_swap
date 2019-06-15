@@ -14,15 +14,15 @@
 #include <string.h>
 #include "libft.h"
 #include "ft_stack.h"
-#include "ft_checker.h"
+#include "ft_push_swap.h"
 
-int					ft_checker_error(t_stack **a, t_checker_options	*opt)
+int					ft_push_swap_error(t_stack **a, t_checker_options	*opt)
 {
 	if (a != NULL)
 		ft_stack_free(a);
 	if (opt != NULL)
 		free(opt);
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Error\n", 1);
 	return (0);
 }
 
@@ -101,10 +101,10 @@ int					main(int argc, char **argv)
 	t_stack				*a;
 	t_stack				*b;
 	t_checker_options	*opt;
+	t_lstr				*lstr;
 
 	if ((opt = ft_get_opt(argc, argv)) == NULL)
 		return (0);
-	opt->is_checker = 1;
 	a = ft_stack_new(opt->argc);
 	if (!ft_get_args(a, opt))
 		return (ft_checker_error(&a, 0));
@@ -112,11 +112,12 @@ int					main(int argc, char **argv)
 	{
 		ft_stack_free(&a);
 		return (0);
-	}	
+	}
 	b = ft_stack_new(opt->argc);
-	if (!ft_read_and_do_instructions(a, b, opt))
-		return (ft_checker_error(0, opt));
-	ft_putstr((ft_solved(a, b)) ? "OK\n" : "KO\n");
+	lstr = ft_lstr_new_empty();
+	ft_algorithm(a, b, lstr);
+	ft_lstr_put(lstr);
+	ft_lstr_destroy(&lstr);
 	ft_stack_free(&a);
 	ft_stack_free(&b);
 	free(opt);
