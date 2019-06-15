@@ -84,10 +84,10 @@ int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
 		return (0);
 	}
 	ft_lstr_destroy(&lstr);
-	i = 0;
 	ok = 1;
 	if (opt->debug)
-			ft_show_debug(a, b, instructions[i - 1], 1);
+			ft_show_debug(a, b, NULL, 1);
+	i = 0;
 	while (ok && instructions[i])
 	{
 		ok = ft_do_instruction(a, b, instructions[i++]);

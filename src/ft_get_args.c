@@ -4,38 +4,41 @@
 #include "ft_stack.h"
 #include "ft_checker.h"
 
-t_checker_options	*ft_create_options(void)
+void				ft_splited_free(char **splited)
 {
-	t_checker_options	*opt;
+	int		i;
 
-	if ((opt = (t_checker_options*)malloc(sizeof(t_checker_options))) == NULL)
-		return (NULL);
-	opt->debug = 0;
-	return (opt);
-}	
+	i = 0;
+	while (splited[i])
+		free(splited[i++]);
+	free(splited);
+}
 
-int					ft_get_args(int argc, char **argv, t_stack *a,
-						t_checker_options **opt)
+int					ft_get_args(t_stack *a, t_checker_options *opt)
 {
-	int					i;
-	int					numb;
+	int				i;
+	int				numb;
+	int				ok;
 
-	if ((*opt = ft_create_options()) == NULL)
-		return (0);
-	i = argc;
-	while (--i > 0)
+	i = opt->argc;
+	ok = 1;
+	while (--i >= 0)
 	{
-		if (ft_isint(argv[i]))
+		if (ft_isint(opt->arguments[i]))
 		{
-			numb = ft_atoi(argv[i]);
+			numb = ft_atoi(opt->arguments[i]);
 			if (ft_stack_contains(a, numb))
 				return (0);
 			ft_stack_push(a, numb);
 		}
-		else if (ft_strcmp(argv[i], "-d") == 0)
-			(*opt)->debug = 1;
+		else if (ft_strcmp(opt->arguments[i], "-d") == 0)
+			opt->debug = 1;
 		else
-			return (0);
+		{
+			ok = 0;
+			break ;
+		}
 	}
-	return (1);
+	ft_splited_free(opt->arguments);
+	return (ok);
 }

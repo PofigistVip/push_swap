@@ -5,12 +5,13 @@
 
 typedef struct	s_checker_options
 {
+	int		argc;
+	char	**arguments;
 	int		debug;
 }				t_checker_options;
 
-
-int		ft_get_args(int argc, char **argv, t_stack *a,
-			t_checker_options **opt);
+void	ft_splited_free(char **splited);
+int		ft_get_args(t_stack *a, t_checker_options *opt);
 int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
 			t_checker_options *opt);
 int		ft_show_debug(t_stack *a, t_stack *b, char *instruction, int first);
