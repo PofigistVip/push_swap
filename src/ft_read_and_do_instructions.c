@@ -4,6 +4,7 @@
 #include "libft.h"
 #include "ft_stack.h"
 #include "ft_instructions.h"
+#include "ft_checker.h"
 
 t_lstr	*ft_read(void)
 {
@@ -65,7 +66,10 @@ int		ft_read_free(t_stack *a, t_stack *b, char **instructions, int ok)
 	}
 }
 
-int		ft_read_and_do_instructions(t_stack *a, t_stack *b)
+
+
+int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
+			t_checker_options *opt)
 {
 	t_lstr	*lstr;
 	char	**instructions;
@@ -82,8 +86,14 @@ int		ft_read_and_do_instructions(t_stack *a, t_stack *b)
 	ft_lstr_destroy(&lstr);
 	i = 0;
 	ok = 1;
+	if (opt->debug)
+			ft_show_debug(a, b, instructions[i - 1], 1);
 	while (ok && instructions[i])
+	{
 		ok = ft_do_instruction(a, b, instructions[i++]);
+		if (opt->debug)
+			ft_show_debug(a, b, instructions[i - 1], 0);
+	}	
 	ft_read_free(a, b, instructions, ok);
 	return (ok);
 }

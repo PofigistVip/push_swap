@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "libft.h"
 #include "ft_stack.h"
 #include "ft_checker.h"
@@ -39,13 +40,15 @@ int		ft_solved(t_stack *a, t_stack *b)
 
 int		main(int argc, char **argv)
 {
-	t_stack		*a;
-	t_stack		*b;
+	t_stack				*a;
+	t_stack				*b;
+	t_checker_options	*opt;
 
 	if (argc <= 1)
 		return (0);
 	a = ft_stack_new(argc - 1);
-	if (!ft_get_args(argc, argv, a))
+	opt = NULL;
+	if (!ft_get_args(argc, argv, a, &opt))
 	{
 		ft_stack_free(&a);
 		return (ft_checker_error());
@@ -56,7 +59,7 @@ int		main(int argc, char **argv)
 		return (0);
 	}	
 	b = ft_stack_new(argc - 1);
-	if (!ft_read_and_do_instructions(a, b))
+	if (!ft_read_and_do_instructions(a, b, opt))
 		return (ft_checker_error());
 	ft_putstr((ft_solved(a, b)) ? "OK\n" : "KO\n");
 	ft_stack_free(&a);
