@@ -102,3 +102,17 @@ void			ft_stack_show(t_stack *stack)
 	}
 	ft_putchar('\n');
 }
+
+int				ft_stack_contains(t_stack *stack, int numb)
+{
+	int i;
+
+	if (stack)
+	{
+		i = -1;
+		while (++i <=stack->top)
+			if (stack->stack[i] == numb)
+				return (1);
+	}
+	return (0);
+}

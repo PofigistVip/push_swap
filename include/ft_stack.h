@@ -27,5 +27,6 @@ void			ft_stack_rotate(t_stack *stack);
 void			ft_stack_reverse_rotate(t_stack *stack);
 void			ft_stack_free(t_stack **stack);
 void			ft_stack_show(t_stack *stack);
+int				ft_stack_contains(t_stack *stack, int numb);
 
 #endif
