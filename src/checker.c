@@ -16,7 +16,7 @@
 #include "ft_stack.h"
 #include "ft_checker.h"
 
-int					ft_checker_error(t_stack **a, t_checker_options	*opt)
+static int			ft_checker_error(t_stack **a, t_checker_options	*opt)
 {
 	if (a != NULL)
 		ft_stack_free(a);
