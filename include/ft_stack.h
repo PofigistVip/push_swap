@@ -22,8 +22,10 @@ typedef struct	s_stack
 t_stack			*ft_stack_new(int size);
 int				ft_stack_pop(t_stack *stack);
 void			ft_stack_push(t_stack *stack, int numb);
+void			ft_stack_swap(t_stack *stack);
 void			ft_stack_rotate(t_stack *stack);
 void			ft_stack_reverse_rotate(t_stack *stack);
 void			ft_stack_free(t_stack **stack);
+void			ft_stack_show(t_stack *stack);
 
 #endif
