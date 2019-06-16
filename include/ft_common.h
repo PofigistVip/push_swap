@@ -11,7 +11,7 @@ typedef struct	s_checker_options
 	int		debug;
 }				t_checker_options;
 
-void	ft_splited_free(char **splited);
+void	ft_splited_free(char ***splited);
 int		ft_get_args(t_stack *a, t_checker_options *opt);
 
 #endif

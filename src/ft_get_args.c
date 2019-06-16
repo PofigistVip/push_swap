@@ -4,14 +4,14 @@
 #include "ft_stack.h"
 #include "ft_checker.h"
 
-void				ft_splited_free(char **splited)
+void				ft_splited_free(char ***splited)
 {
 	int		i;
 
 	i = 0;
-	while (splited[i])
-		free(splited[i++]);
-	free(splited);
+	while ((*splited)[i])
+		free((*splited)[i++]);
+	free(*splited);
 }
 
 int					ft_get_args(t_stack *a, t_checker_options *opt)
@@ -37,6 +37,6 @@ int					ft_get_args(t_stack *a, t_checker_options *opt)
 			ok = 0;
 			break ;
 		}
-	ft_splited_free(opt->arguments);
+	ft_splited_free(&(opt->arguments));
 	return (ok);
 }

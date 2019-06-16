@@ -65,13 +65,17 @@ int		ft_lstr_count_chars(t_lstr *lstr, char c)
 {
 	int		counter;
 	char	*ptr;
+	int		i;
 
 	ptr = lstr->str;
-	while (*ptr)
+	i = 0;
+	counter = 0;
+	while (i < lstr->length)
 	{
 		if (*ptr == c)
 			++counter;
 		++ptr;
+		++i;
 	}
 	return (counter);
 }
@@ -96,4 +100,5 @@ void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr)
 		*lstr = alg2_lstr;
 		ft_lstr_destroy(&alg1_lstr);
 	}
+	ft_stack_free(&a_copy);
 }
