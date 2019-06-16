@@ -211,6 +211,20 @@ int		ft_min_el(t_stack *a)
 	return (min);
 }
 
+void	ft_set_min_on_top(t_stack *a, t_stack *b, t_lstr *lstr)
+{
+	int		min_el;
+	int		moves;
+
+	min_el = ft_min_el(a);
+	moves = ft_road_to_top_best(a, min_el);
+	while (moves != 0)
+		if (moves > 0 && moves--)
+			ft_inst_ra(a, b, lstr);
+		else if (moves++)
+			ft_inst_rra(a, b, lstr);
+}
+
 void	ft_algorithm(t_stack *a, t_stack *b, t_lstr *lstr)
 {
 	t_stack		*a_copy;
@@ -226,11 +240,5 @@ void	ft_algorithm(t_stack *a, t_stack *b, t_lstr *lstr)
 		min_i = ft_pull_a(a, b);
 		ft_make_moves(a, b, lstr, min_i);
 	}
-	min_i = ft_min_el(a);
-	min_i = ft_road_to_top_best(a, min_i);
-	while (min_i != 0)
-		if (min_i > 0 && min_i--)
-			ft_inst_ra(a, b, lstr);
-		else if (min_i++)
-			ft_inst_rra(a, b, lstr);
+	ft_set_min_on_top(a, b, lstr);
 }
