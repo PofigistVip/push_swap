@@ -6,128 +6,6 @@
 #include "ft_stack.h"
 #include "ft_push_swap.h"
 
-int		ft_greater_markup(t_stack *a, int i)
-{
-	int		first;
-	int		current;
-	int		counter;
-
-	first = a->stack[i];
-	current = first;
-	counter = 1;
-	while (--i != -1)
-		if (current < a->stack[i])
-		{
-			current = a->stack[i];
-			++counter;
-		}
-	i = a->top + 1;
-	while (a->stack[--i] != first)
-		if (current < a->stack[i])
-		{
-			current = a->stack[i];
-			++counter;
-		}
-	return (counter);
-}
-
-int		ft_find_greater_markup(t_stack *a)
-{
-	int		i;
-	int		max;
-	int		max_i;
-	int		temp;
-
-	max = 0;
-	max_i = -1;
-	i = a->top + 1;
-	while (--i >= 0)
-	{
-		temp = ft_greater_markup(a, i);
-		if (max < temp)
-		{
-			max = temp;
-			max_i = i;
-		}
-	}
-	return (max_i);
-}
-
-void	ft_greater_markup_marks(t_stack *a, int markup_head_i)
-{
-	int		j;
-	int		first;
-	int		current;
-
-	j =  markup_head_i;
-	first = a->stack[j];
-	a->marks[j] = 1;
-	current = first;
-	while (--j != -1)
-		if (current < a->stack[j])
-		{
-			current = a->stack[j];
-			a->marks[j] = 1;
-		}
-	j = a->top + 1;
-	while (a->stack[--j] != first)
-		if (current < a->stack[j])
-		{
-			current = a->stack[j];
-			a->marks[j] = 1;
-		}
-}
-
-int		ft_greater_markup_core_inner(t_stack *a, t_stack *b, t_lstr *lstr,
-			int *markup_size)
-{
-	int			temp_size;
-
-	ft_stack_swap(a);
-	temp_size = ft_greater_markup(a, a->top);
-	if (temp_size > *markup_size)
-	{
-		ft_bzero(a->marks, (a->top + 1) * sizeof(char));
-		*markup_size = temp_size;
-		ft_stack_swap(a);
-		ft_inst_sa(a, b, lstr);
-		ft_greater_markup_marks(a, a->top);
-		return (1);
-	}
-	ft_stack_swap(a);
-	return (0);
-}
-
-void	ft_greater_markup_core(t_stack *a, t_stack *b, t_lstr *lstr)
-{
-	int			markup_head_i;
-	int			markup_size;
-	int			i;
-
-	markup_head_i = ft_find_greater_markup(a);
-	ft_greater_markup_marks(a, markup_head_i);
-	markup_size = ft_stack_marks_count(a);
-	i = a->top + 1;
-	while (ft_stack_marks_count(a) != a->top + 1)
-	{
-		if (a->top >= 1 && (ft_greater_markup_core_inner(a, b, lstr, &markup_size) == 1))
-			;
-		else if (a->marks[a->top] == 1)
-		{
-			ft_inst_ra(a, b, lstr);
-			++i;
-		}
-		else
-		{
-			ft_inst_pb(a, b, lstr);
-		}
-	}
-	if (a->marks[a->top] == 0)
-	{
-		ft_inst_pb(a, b, lstr);
-	}
-}
-
 int		ft_nearest_number_for(t_stack *stack, int number)
 {
 	int		num_i;
@@ -266,6 +144,7 @@ void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr)
 	t_lstr		*alg2_lstr;
 	int			*min;
 
+	a_copy = ft_stack_copy(a);
 	alg1_lstr = ft_lstr_new_empty();
 	ft_greater_markup_core(a, b, alg1_lstr);
 	while (b->top != -1)
@@ -276,5 +155,25 @@ void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr)
 		free(min);
 	}
 	ft_set_min_on_top(a, b, alg1_lstr);
-	*lstr = alg1_lstr;
+
+	alg2_lstr = ft_lstr_new_empty();
+	ft_greater_markup_core(a_copy, b, alg2_lstr);
+	while (b->top != -1)
+	{
+		min = ft_pull_a(a_copy, b);
+		ft_do_moves_optimal(a_copy, b, alg2_lstr, min);
+		ft_inst_pa(a_copy, b, alg2_lstr);
+		free(min);
+	}
+	ft_set_min_on_top(a_copy, b, alg2_lstr);
+	if (alg1_lstr->length < alg2_lstr->length)
+	{
+		*lstr = alg1_lstr;
+		ft_lstr_destroy(&alg2_lstr);
+	}
+	else
+	{
+		*lstr = alg2_lstr;
+		ft_lstr_destroy(&alg1_lstr);
+	}
 }

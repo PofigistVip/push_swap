@@ -1,5 +1,5 @@
 CHECKER_SRC=$(addprefix ../src/,checker.c ft_debug.c ft_get_args.c ft_instructions.c ft_read_and_do_instructions.c ft_stack.c)
-PUSH_SWAP_SRC=$(addprefix ../src/,push_swap.c ft_algorithm.c ft_road_to_top.c ft_get_args.c ft_instructions.c ft_stack.c)
+PUSH_SWAP_SRC=$(addprefix ../src/,push_swap.c ft_algorithm.c ft_markups.c ft_road_to_top.c ft_get_args.c ft_instructions.c ft_stack.c)
 
 checker:
 	make -C ../lib/libft re
