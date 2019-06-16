@@ -85,7 +85,7 @@ t_checker_options 	*ft_get_opt(int argc, char **argv)
 	}
 	if (argc == 0)
 	{
-		ft_splited_free(opt->arguments);
+		ft_splited_free(&(opt->arguments));
 		free(opt);
 		return (NULL);
 	}
