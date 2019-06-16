@@ -175,24 +175,36 @@ int		ft_pull_a(t_stack *a, t_stack *b)
 	return (min_i);
 }
 
+void	ft_do_moves_optimal(t_stack *a, t_stack *b, t_lstr *lstr, int *moves_ab)
+{
+	while ((moves_ab[0] > 0 && moves_ab[1] > 0) &&
+		(moves_ab[0]-- && moves_ab[1]--))
+		ft_inst_rr(a, b, lstr);
+	while ((moves_ab[0] < 0 && moves_ab[1] < 0) &&
+		(moves_ab[0]++ && moves_ab[1]++))
+		ft_inst_rrr(a, b, lstr);
+	while (moves_ab[0] != 0)
+		if (moves_ab[0] > 0 && moves_ab[0]--)
+			ft_inst_ra(a, b, lstr);
+		else if (moves_ab[0]++)
+			ft_inst_rra(a, b, lstr);
+	while (moves_ab[1] != 0)
+		if (moves_ab[1] > 0 && moves_ab[1]--)
+			ft_inst_rb(a, b, lstr);
+		else if (moves_ab[1]++)
+			ft_inst_rrb(a, b, lstr);
+}
+
 int		ft_make_moves(t_stack *a, t_stack *b, t_lstr *lstr, int bi)
 {
+	int		moves_ab[2];
 	int	nearest;
 	int	moves;
 
+	moves_ab[1] = ft_road_to_top_best(b, b->stack[bi]);
 	nearest = ft_nearest_number_for(a, b->stack[bi]);
-	moves = ft_road_to_top_best(b, b->stack[bi]);
-	while (moves != 0)
-		if (moves > 0 && moves--)
-			ft_inst_rb(a, b, lstr);
-		else if (moves++)
-			ft_inst_rrb(a, b, lstr);
-	moves = ft_road_to_top_best(a, nearest);
-	while (moves != 0)
-		if (moves > 0 && moves--)
-			ft_inst_ra(a, b, lstr);
-		else if (moves++)
-			ft_inst_rra(a, b, lstr);
+	moves_ab[0] = ft_road_to_top_best(a, nearest);
+	ft_do_moves_optimal(a, b, lstr, moves_ab);
 	ft_inst_pa(a, b, lstr);
 }
 
@@ -210,6 +222,8 @@ int		ft_min_el(t_stack *a)
 	}
 	return (min);
 }
+
+
 
 void	ft_set_min_on_top(t_stack *a, t_stack *b, t_lstr *lstr)
 {
