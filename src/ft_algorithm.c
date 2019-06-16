@@ -80,12 +80,14 @@ int		ft_lstr_count_chars(t_lstr *lstr, char c)
 	return (counter);
 }
 
-void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr)
+void	ft_algorithm(t_stack *a, t_lstr **lstr)
 {
+	t_stack		*b;
 	t_stack		*a_copy;
 	t_lstr		*alg1_lstr;
 	t_lstr		*alg2_lstr;
 
+	b = ft_stack_new(a->size);
 	a_copy = ft_stack_copy(a);
 	alg1_lstr = ft_alg_greater(a, b);
 	alg2_lstr = ft_alg_index(a_copy, b);
@@ -101,4 +103,5 @@ void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr)
 		ft_lstr_destroy(&alg1_lstr);
 	}
 	ft_stack_free(&a_copy);
+	ft_stack_free(&b);
 }

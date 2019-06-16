@@ -8,10 +8,23 @@ void				ft_splited_free(char ***splited)
 {
 	int		i;
 
-	i = 0;
-	while ((*splited)[i])
-		free((*splited)[i++]);
-	free(*splited);
+	if (*splited)
+	{
+		i = 0;
+		while ((*splited)[i])
+			free((*splited)[i++]);
+		free(*splited);
+		*splited = NULL;
+	}
+}
+
+int					ft_opt_free(t_checker_options **opt)
+{
+	if ((*opt)->arguments)
+		ft_splited_free(&((*opt)->arguments));
+	free(*opt);
+	*opt = NULL;
+	return (0);
 }
 
 int					ft_get_args(t_stack *a, t_checker_options *opt)

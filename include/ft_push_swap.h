@@ -5,7 +5,7 @@
 # include "libft.h"
 # include "ft_stack.h"
 
-void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr);
+void	ft_algorithm(t_stack *a, t_lstr **lstr);
 int		ft_greater_than(int current, t_stack *a, int in_stack);
 int		ft_index_than(int current, t_stack *a, int in_stack);
 int		ft_markup(t_stack *a, int i, int (*f)(int, t_stack*, int));

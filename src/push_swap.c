@@ -86,8 +86,7 @@ t_checker_options 	*ft_get_opt(int argc, char **argv)
 	}
 	if (argc == 0)
 	{
-		ft_splited_free(&(opt->arguments));
-		free(opt);
+		ft_opt_free(&opt);
 		return (NULL);
 	}
 	opt->argc = argc;
@@ -98,7 +97,6 @@ t_checker_options 	*ft_get_opt(int argc, char **argv)
 int					main(int argc, char **argv)
 {
 	t_stack				*a;
-	t_stack				*b;
 	t_checker_options	*opt;
 	t_lstr				*lstr;
 
@@ -108,22 +106,17 @@ int					main(int argc, char **argv)
 	if (!ft_get_args(a, opt))
 	{
 		ft_stack_free(&a);
-		ft_splited_free(&(opt->arguments));
-		free(opt);
-		return (0);
+		return (ft_opt_free(&opt));
 	}
 	if (a->top == -1)
 	{
 		ft_stack_free(&a);
 		return (0);
 	}
-	b = ft_stack_new(opt->argc);
 	lstr = NULL;
-	ft_algorithm(a, b, &lstr);
+	ft_algorithm(a, &lstr);
 	ft_lstr_put(lstr);
 	ft_lstr_destroy(&lstr);
 	ft_stack_free(&a);
-	ft_stack_free(&b);
-	free(opt);
-	return (0);
+	return (ft_opt_free(&opt));
 }

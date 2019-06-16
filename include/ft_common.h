@@ -12,6 +12,7 @@ typedef struct	s_checker_options
 }				t_checker_options;
 
 void	ft_splited_free(char ***splited);
+int		ft_opt_free(t_checker_options **opt);
 int		ft_get_args(t_stack *a, t_checker_options *opt);
 
 #endif
