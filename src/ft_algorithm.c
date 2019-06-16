@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include <limits.h>
 #include "libft.h"
 #include "ft_instructions.h"
@@ -146,33 +147,67 @@ int		ft_nearest_number_for(t_stack *stack, int number)
 	return (stack->stack[num_i]);
 }
 
-int		ft_pull_a(t_stack *a, t_stack *b)
+void	ft_count_ra_rb(t_stack *a, t_stack *b, int *current)
 {
-	int		i;
-	int		min_moves;
-	int		min_i;
-	int		summ;
-	int		nearest;
+	current[1] = ft_road_to_top_rotate(b, current[3]);
+	current[0] = ft_road_to_top_rotate(a, current[4]);
+	current[2] = (current[0] > current[1]) ? current[0] : current[1];
+}
 
+void	ft_count_rra_rb(t_stack *a, t_stack *b, int *current)
+{
+	current[1] = ft_road_to_top_rotate(b, current[3]);
+	current[0] = ft_road_to_top_reverse_rotate(a, current[4]);
+	current[2] = current[0] + current[1];
+	current[0] = -current[0];
+}
+
+void	ft_count_ra_rrb(t_stack *a, t_stack *b, int *current)
+{
+	current[1] = ft_road_to_top_reverse_rotate(b, current[3]);
+	current[0] = ft_road_to_top_rotate(a, current[4]);
+	current[2] = current[0] + current[1];
+	current[1] = -current[1];
+}
+
+void	ft_count_rra_rrb(t_stack *a, t_stack *b, int *current)
+{
+	current[1] = ft_road_to_top_reverse_rotate(b, current[3]);
+	current[0] = ft_road_to_top_reverse_rotate(a, current[4]);
+	current[2] = (current[0] > current[1]) ? current[0] : current[1];
+	current[0] = -current[0];
+	current[1] = -current[1];
+}
+
+void	ft_set_min(int *min, int *current)
+{
+	if (min[2] > current[2])
+		ft_memmove(min, current, 5 * sizeof(int));
+}
+
+int		*ft_pull_a(t_stack *a, t_stack *b)
+{
+	int		*min;
+	int		curr[5];
+	int		i;
+
+	min = (int*)ft_memalloc(5 * sizeof(int));
+	min[2] = INT_MAX;
 	i = b->top + 1;
-	min_moves = -1;
 	while (--i >= 0)
 	{
-		nearest = ft_nearest_number_for(a, b->stack[i]);
-		summ = ft_road_to_top_best(b, b->stack[i]);
-		if (summ < 0)
-			summ = -summ;
-		if (ft_road_to_top_best(a, nearest) < 0)
-			summ += -ft_road_to_top_best(a, nearest);
-		else
-			summ += ft_road_to_top_best(a, nearest);
-		if (min_moves == -1 || summ < min_moves)
-		{
-			min_moves = summ;
-			min_i = i;
-		}
+		curr[3] = b->stack[i];
+		curr[4] = ft_nearest_number_for(a, b->stack[i]);
+		ft_count_ra_rb(a, b, curr);
+		ft_set_min(min, curr);
+		ft_count_ra_rrb(a, b, curr);
+		ft_set_min(min, curr);
+		ft_count_rra_rb(a, b, curr);
+		ft_set_min(min, curr);
+		ft_count_rra_rrb(a, b, curr);
+		ft_set_min(min, curr);
 	}
-	return (min_i);
+	return (min);
 }
 
 void	ft_do_moves_optimal(t_stack *a, t_stack *b, t_lstr *lstr, int *moves_ab)
@@ -195,16 +230,9 @@ void	ft_do_moves_optimal(t_stack *a, t_stack *b, t_lstr *lstr, int *moves_ab)
 			ft_inst_rrb(a, b, lstr);
 }
 
-int		ft_make_moves(t_stack *a, t_stack *b, t_lstr *lstr, int bi)
+int		ft_make_moves(t_stack *a, t_stack *b, t_lstr *lstr, int *min)
 {
-	int		moves_ab[2];
-	int	nearest;
-	int	moves;
-
-	moves_ab[1] = ft_road_to_top_best(b, b->stack[bi]);
-	nearest = ft_nearest_number_for(a, b->stack[bi]);
-	moves_ab[0] = ft_road_to_top_best(a, nearest);
-	ft_do_moves_optimal(a, b, lstr, moves_ab);
+	ft_do_moves_optimal(a, b, lstr, min);
 	ft_inst_pa(a, b, lstr);
 }
 
@@ -244,15 +272,16 @@ void	ft_algorithm(t_stack *a, t_stack *b, t_lstr *lstr)
 	t_stack		*a_copy;
 	t_lstr		*alg1_lstr;
 	t_lstr		*alg2_lstr;
-	int			min_i;
+	int			*min;
 
 	(void)alg1_lstr;
 	(void)alg2_lstr;
 	ft_greater_markup_core(a, b, lstr);
 	while (b->top != -1)
 	{
-		min_i = ft_pull_a(a, b);
-		ft_make_moves(a, b, lstr, min_i);
+		min = ft_pull_a(a, b);
+		ft_make_moves(a, b, lstr, min);
+		free(min);
 	}
 	ft_set_min_on_top(a, b, lstr);
 }
