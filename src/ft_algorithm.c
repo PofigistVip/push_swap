@@ -230,12 +230,6 @@ void	ft_do_moves_optimal(t_stack *a, t_stack *b, t_lstr *lstr, int *moves_ab)
 			ft_inst_rrb(a, b, lstr);
 }
 
-int		ft_make_moves(t_stack *a, t_stack *b, t_lstr *lstr, int *min)
-{
-	ft_do_moves_optimal(a, b, lstr, min);
-	ft_inst_pa(a, b, lstr);
-}
-
 int		ft_min_el(t_stack *a)
 {
 	int		min;
@@ -251,8 +245,6 @@ int		ft_min_el(t_stack *a)
 	return (min);
 }
 
-
-
 void	ft_set_min_on_top(t_stack *a, t_stack *b, t_lstr *lstr)
 {
 	int		min_el;
@@ -267,21 +259,22 @@ void	ft_set_min_on_top(t_stack *a, t_stack *b, t_lstr *lstr)
 			ft_inst_rra(a, b, lstr);
 }
 
-void	ft_algorithm(t_stack *a, t_stack *b, t_lstr *lstr)
+void	ft_algorithm(t_stack *a, t_stack *b, t_lstr **lstr)
 {
 	t_stack		*a_copy;
 	t_lstr		*alg1_lstr;
 	t_lstr		*alg2_lstr;
 	int			*min;
 
-	(void)alg1_lstr;
-	(void)alg2_lstr;
-	ft_greater_markup_core(a, b, lstr);
+	alg1_lstr = ft_lstr_new_empty();
+	ft_greater_markup_core(a, b, alg1_lstr);
 	while (b->top != -1)
 	{
 		min = ft_pull_a(a, b);
-		ft_make_moves(a, b, lstr, min);
+		ft_do_moves_optimal(a, b, alg1_lstr, min);
+		ft_inst_pa(a, b, alg1_lstr);
 		free(min);
 	}
-	ft_set_min_on_top(a, b, lstr);
+	ft_set_min_on_top(a, b, alg1_lstr);
+	*lstr = alg1_lstr;
 }

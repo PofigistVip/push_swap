@@ -115,8 +115,8 @@ int					main(int argc, char **argv)
 		return (0);
 	}
 	b = ft_stack_new(opt->argc);
-	lstr = ft_lstr_new_empty();
-	ft_algorithm(a, b, lstr);
+	lstr = NULL;
+	ft_algorithm(a, b, &lstr);
 	ft_lstr_put(lstr);
 	ft_lstr_destroy(&lstr);
 	ft_stack_free(&a);
