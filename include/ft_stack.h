@@ -15,6 +15,7 @@
 typedef struct	s_stack
 {
 	int		*stack;
+	char	*marks;
 	int		top;
 	int		size;
 }				t_stack;

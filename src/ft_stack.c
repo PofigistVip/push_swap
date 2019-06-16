@@ -26,6 +26,12 @@ t_stack			*ft_stack_new(int size)
 		free(stack);
 		return (NULL);
 	}
+	if ((stack->marks = (char*)malloc(size * sizeof(char))) == NULL)
+	{
+		free(stack->stack);
+		free(stack);
+		return (NULL);
+	}
 	stack->top = -1;
 	stack->size = size;
 	return (stack);
@@ -54,6 +60,9 @@ void			ft_stack_swap(t_stack *stack)
 		temp = stack->stack[stack->top];
 		stack->stack[stack->top] = stack->stack[stack->top - 1];
 		stack->stack[stack->top - 1] = temp;
+		temp = stack->marks[stack->top];
+		stack->marks[stack->top] = stack->marks[stack->top - 1];
+		stack->marks[stack->top - 1] = temp;
 	}
 }
 
@@ -66,6 +75,9 @@ void			ft_stack_rotate(t_stack *stack)
 	temp = stack->stack[stack->top];
 	ft_memmove(stack->stack + 1, stack->stack, stack->top * sizeof(int));
 	stack->stack[0] = temp;
+	temp = stack->marks[stack->top];
+	ft_memmove(stack->marks + 1, stack->marks, stack->top * sizeof(char));
+	stack->marks[0] = temp;
 }
 
 void			ft_stack_reverse_rotate(t_stack *stack)
@@ -77,6 +89,9 @@ void			ft_stack_reverse_rotate(t_stack *stack)
 	temp = stack->stack[0];
 	ft_memmove(stack->stack, stack->stack + 1, stack->top * sizeof(int));
 	stack->stack[stack->top] = temp;
+	temp = stack->marks[0];
+	ft_memmove(stack->marks, stack->marks + 1, stack->top * sizeof(char));
+	stack->marks[stack->top] = temp;
 }
 
 void			ft_stack_free(t_stack **stack)
@@ -84,6 +99,7 @@ void			ft_stack_free(t_stack **stack)
 	if (stack == NULL || *stack == NULL)
 		return ;
 	free((*stack)->stack);
+	free((*stack)->marks);
 	free(*stack);
 	*stack = NULL;
 }

@@ -30,7 +30,10 @@ int		ft_inst_ss(t_stack *a, t_stack *b, t_lstr *lstr)
 int		ft_inst_pa(t_stack *a, t_stack *b, t_lstr *lstr)
 {
 	if (b->top != -1)
+	{
 		ft_stack_push(a, ft_stack_pop(b));
+		a->marks[a->top] = b->marks[b->top + 1];
+	}	
 	if (lstr)
 		ft_lstr_insert_sn(lstr, "pa\n", 3, lstr->length);
 	return (1);
@@ -39,7 +42,10 @@ int		ft_inst_pa(t_stack *a, t_stack *b, t_lstr *lstr)
 int		ft_inst_pb(t_stack *a, t_stack *b, t_lstr *lstr)
 {
 	if (a->top != -1)
+	{
 		ft_stack_push(b, ft_stack_pop(a));
+		b->marks[b->top] = a->marks[a->top + 1];
+	}	
 	if (lstr)
 		ft_lstr_insert_sn(lstr, "pb\n", 3, lstr->length);
 	return (1);
