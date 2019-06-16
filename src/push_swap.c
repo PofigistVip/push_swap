@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "ft_common.h"
 #include "libft.h"
 #include "ft_stack.h"
 #include "ft_push_swap.h"
@@ -107,7 +108,7 @@ int					main(int argc, char **argv)
 		return (0);
 	a = ft_stack_new(opt->argc);
 	if (!ft_get_args(a, opt))
-		return (ft_checker_error(&a, 0));
+		return (ft_push_swap_error(&a, 0));
 	if (a->top == -1)
 	{
 		ft_stack_free(&a);

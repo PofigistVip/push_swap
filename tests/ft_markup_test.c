@@ -4,6 +4,7 @@
 
 int		ft_greater_markup(t_stack *a, int i);
 int		ft_find_greater_markup(t_stack *a);
+void	ft_greater_markup_marks(t_stack *a, int markup_head_i);
 
 void	ft_greater_markup_test(t_stack *a)
 {
@@ -34,6 +35,25 @@ void	ft_find_greater_markup_test(t_stack *a)
 	ft_putstr("]\n");
 }
 
+void	ft_greater_markup_marks_test(t_stack *a)
+{
+	int		markup_head_i;
+	int		i;
+
+	markup_head_i = ft_find_greater_markup(a);
+	ft_greater_markup_marks(a, markup_head_i);
+	i = a->top + 1;
+	ft_putstr("TOP\n");
+	while (--i >= 0)
+	{
+		ft_putnbr(a->stack[i]);
+		ft_putchar('[');
+		ft_putnbr(i);
+		ft_putchar(']');
+		ft_putstr((a->marks[i] == 1) ? "marked\n" : "\n");
+	}
+}
+
 int		main(void)
 {
 	t_stack		*a;
@@ -51,6 +71,6 @@ int		main(void)
 	ft_stack_push(a, 5);
 	ft_greater_markup_test(a);
 	ft_find_greater_markup_test(a);
-
+	ft_greater_markup_marks_test(a);
 	return (0);
 }

@@ -26,7 +26,7 @@ t_stack			*ft_stack_new(int size)
 		free(stack);
 		return (NULL);
 	}
-	if ((stack->marks = (char*)malloc(size * sizeof(char))) == NULL)
+	if ((stack->marks = (char*)ft_memalloc(size * sizeof(char))) == NULL)
 	{
 		free(stack->stack);
 		free(stack);
@@ -131,4 +131,34 @@ int				ft_stack_contains(t_stack *stack, int numb)
 				return (1);
 	}
 	return (0);
+}
+
+int				ft_stack_marks_count(t_stack *stack)
+{
+	int		i;
+	int		counter;
+
+	counter = 0;
+	i = stack->top + 1;
+	while (--i >= 0)
+		if (stack->marks[i] == 1)
+			++counter;
+	return (counter);
+}
+
+t_stack			*ft_stack_copy(t_stack *stack)
+{
+	t_stack		*new_stack;
+
+	if (stack == NULL)
+		return (NULL);
+	if ((new_stack = ft_stack_new(stack->size)) == NULL)
+		return (NULL);
+	new_stack->top = stack->top;
+	if (new_stack->top != -1)
+	{
+		ft_memmove(new_stack->stack, stack->stack, (new_stack->top + 1) * sizeof(int));
+		ft_memmove(new_stack->marks, stack->marks, (new_stack->top + 1) * sizeof(char));
+	}
+	return (new_stack);
 }
