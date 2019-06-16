@@ -102,39 +102,29 @@ void	ft_greater_markup_core(t_stack *a, t_stack *b, t_lstr *lstr)
 	int			markup_head_i;
 	int			markup_size;
 	int			i;
-	int			last;
 
 	markup_head_i = ft_find_greater_markup(a);
 	ft_greater_markup_marks(a, markup_head_i);
 	markup_size = ft_stack_marks_count(a);
 	i = a->top + 1;
-	last = a->stack[0];
-	while (a->stack[a->top] != last)
+	while (ft_stack_marks_count(a) != a->top + 1)
 	{
-		//ft_putchar('+');
 		if (a->top >= 1 && (ft_greater_markup_core_inner(a, b, lstr, &markup_size) == 1))
-			/* ft_putchar('S')*/;
+			;
 		else if (a->marks[a->top] == 1)
 		{
-			//ft_putchar('R');
 			ft_inst_ra(a, b, lstr);
 			++i;
 		}
 		else
 		{
-			//ft_putchar('P');
 			ft_inst_pb(a, b, lstr);
 		}
-		//ft_putchar('\n');
 	}
-	//ft_putchar('+');
 	if (a->marks[a->top] == 0)
 	{
-		//ft_putchar('P');
 		ft_inst_pb(a, b, lstr);
 	}
-	//ft_putchar('\n');
-		
 }
 
 int		ft_nearest_number_for(t_stack *stack, int number)
