@@ -11,7 +11,10 @@ CHECKER_SRC=$(addprefix ../src/, \
 PUSH_SWAP_SRC=$(addprefix ../src/, \
 	push_swap.c \
 	ft_algorithm.c \
+	ft_alg_counters.c \
+	ft_algorithm_1.c \
 	ft_markups.c \
+	ft_markups_1.c \
 	ft_road_to_top.c \
 	ft_get_args.c \
 	ft_instructions.c \

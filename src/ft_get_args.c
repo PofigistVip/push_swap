@@ -23,7 +23,6 @@ int					ft_get_args(t_stack *a, t_checker_options *opt)
 	i = opt->argc;
 	ok = 1;
 	while (--i >= 0)
-	{
 		if (ft_isint(opt->arguments[i]))
 		{
 			numb = ft_atoi(opt->arguments[i]);
@@ -38,7 +37,6 @@ int					ft_get_args(t_stack *a, t_checker_options *opt)
 			ok = 0;
 			break ;
 		}
-	}
 	ft_splited_free(opt->arguments);
 	return (ok);
 }

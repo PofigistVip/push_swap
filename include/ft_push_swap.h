@@ -23,4 +23,16 @@ int		ft_road_to_top_rotate(t_stack *a, int number);
 int		ft_road_to_top_reverse_rotate(t_stack *a, int number);
 int		ft_road_to_top_best(t_stack *stack, int number);
 
+void	ft_count_ra_rb(t_stack *a, t_stack *b, int *current);
+void	ft_count_rra_rb(t_stack *a, t_stack *b, int *current);
+void	ft_count_ra_rrb(t_stack *a, t_stack *b, int *current);
+void	ft_count_rra_rrb(t_stack *a, t_stack *b, int *current);
+
+void	ft_set_min(int *min, int *current);
+int		*ft_pull_a(t_stack *a, t_stack *b);
+void	ft_do_moves_optimal(t_stack *a, t_stack *b, t_lstr *lstr,
+			int *moves_ab);
+int		ft_min_el(t_stack *a);
+void	ft_set_min_on_top(t_stack *a, t_stack *b, t_lstr *lstr);
+
 #endif

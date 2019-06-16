@@ -6,10 +6,8 @@ static int	ft_road_find_element(t_stack *a, int number)
 
 	i = -1;
 	while (++i <= a->top)
-	{
 		if (number == a->stack[i])
 			return (i);
-	}
 	return (-1);
 }
 
