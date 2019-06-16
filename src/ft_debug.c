@@ -18,9 +18,8 @@ void	ft_show_line(t_stack *stack, int i)
 	}
 }
 
-int		ft_show_debug(t_stack *a, t_stack *b, char *instruction, int first)
+void	ft_show_debug(t_stack *a, t_stack *b, char *instruction, int first)
 {
-	char	*num;
 	int		i;
 
 	ft_putstr((first) ? "First" : "After '");

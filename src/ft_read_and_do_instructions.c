@@ -64,6 +64,7 @@ int		ft_read_free(t_stack *a, t_stack *b, char **instructions, int ok)
 		ft_stack_free(&a);
 		ft_stack_free(&b);
 	}
+	return (ok);
 }
 
 
@@ -86,7 +87,7 @@ int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
 	ft_lstr_destroy(&lstr);
 	ok = 1;
 	if (opt->debug)
-			ft_show_debug(a, b, NULL, 1);
+		ft_show_debug(a, b, NULL, 1);
 	i = 0;
 	while (ok && instructions[i])
 	{
@@ -94,6 +95,5 @@ int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
 		if (opt->debug)
 			ft_show_debug(a, b, instructions[i - 1], 0);
 	}	
-	ft_read_free(a, b, instructions, ok);
-	return (ok);
+	return (ft_read_free(a, b, instructions, ok));
 }

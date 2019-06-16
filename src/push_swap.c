@@ -49,7 +49,6 @@ char				**ft_splited_args(int *argc, char **argv)
 	t_lstr			*lstr;
 	int				i;
 	char			**splited;
-	int				len;
 
 	if ((lstr = ft_lstr_new_empty()) == NULL)
 		return (NULL);
@@ -73,7 +72,6 @@ char				**ft_splited_args(int *argc, char **argv)
 t_checker_options 	*ft_get_opt(int argc, char **argv)
 {
 	t_checker_options	*opt;
-	int					i;
 
 	if (argc < 2)
 		return (NULL);
