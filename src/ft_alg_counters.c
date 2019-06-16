@@ -6,25 +6,6 @@
 #include "ft_stack.h"
 #include "ft_push_swap.h"
 
-int		ft_after_max_el(t_stack *stack)
-{
-	int		i;
-	int		max;
-	int		max_i;
-
-	i = -1;
-	max = INT_MIN;
-	while (++i <= stack->top)
-		if (max < stack->stack[i])
-		{
-			max = stack->stack[i];
-			max_i = i;
-		}
-	if (max_i - 1 < 0)
-		return (stack->stack[stack->top]);
-	return (stack->stack[max_i - 1]);
-}
-
 int		ft_nearest_number_for(t_stack *stack, int number)
 {
 	int		num_i;

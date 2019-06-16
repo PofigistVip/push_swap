@@ -34,5 +34,6 @@ void	ft_do_moves_optimal(t_stack *a, t_stack *b, t_lstr *lstr,
 			int *moves_ab);
 int		ft_min_el(t_stack *a);
 void	ft_set_min_on_top(t_stack *a, t_stack *b, t_lstr *lstr);
+int		ft_after_max_el(t_stack *stack);
 
 #endif
