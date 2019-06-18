@@ -67,8 +67,6 @@ int		ft_read_free(t_stack *a, t_stack *b, char **instructions, int ok)
 	return (ok);
 }
 
-
-
 int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
 			t_checker_options *opt)
 {

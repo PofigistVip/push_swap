@@ -52,7 +52,8 @@ int					main(int argc, char **argv)
 
 	if ((opt = ft_get_opt(argc, argv, 0)) == NULL)
 		return (0);
-	a = ft_stack_new(opt->argc);
+	if ((a = ft_stack_new(opt->argc)) == NULL)
+		return (ft_opt_free(&opt));
 	if (!ft_get_args(a, opt))
 		return (ft_push_swap_error(&a, opt));
 	lstr = NULL;

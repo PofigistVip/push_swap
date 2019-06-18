@@ -43,6 +43,20 @@ int					ft_solved(t_stack *a, t_stack *b)
 	return (1);
 }
 
+int					ft_clear(t_stack **a, t_stack **b,
+						t_checker_options **opt, int err)
+{
+	if (a != NULL && *a != NULL)
+		ft_stack_free(a);
+	if (b != NULL && *b != NULL)
+		ft_stack_free(b);
+	if (opt != NULL && *opt != NULL)
+		ft_opt_free(opt);
+	if (err)
+		ft_putstr_fd("Error\n", 2);
+	return (0);
+}
+
 int					main(int argc, char **argv)
 {
 	t_stack				*a;
@@ -54,17 +68,13 @@ int					main(int argc, char **argv)
 	if ((a = ft_stack_new(opt->argc)) == NULL)
 		return (ft_opt_free(&opt));
 	if (!ft_get_args(a, opt))
-		return (ft_checker_error(&a, opt));
+		return (ft_clear(&a, 0, &opt, 1));
 	if (a->top == -1)
-	{
-		ft_stack_free(&a);
-		return (0);
-	}	
-	b = ft_stack_new(opt->argc);
+		return (ft_clear(&a, 0, &opt, 0));
+	if ((b = ft_stack_new(opt->argc)) == NULL)
+		return (ft_clear(&a, 0, &opt, 0));
 	if (!ft_read_and_do_instructions(a, b, opt))
 		return (ft_checker_error(0, opt));
 	ft_putstr((ft_solved(a, b)) ? "OK\n" : "KO\n");
-	ft_stack_free(&a);
-	ft_stack_free(&b);
-	return (ft_opt_free(&opt));
+	return (ft_clear(&a, &b, &opt, 0));
 }
