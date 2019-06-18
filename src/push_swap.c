@@ -22,7 +22,7 @@ int					ft_push_swap_error(t_stack **a, t_checker_options	*opt)
 	if (a != NULL)
 		ft_stack_free(a);
 	if (opt != NULL)
-		free(opt);
+		ft_opt_free(&opt);
 	ft_putstr_fd("Error\n", 1);
 	return (0);
 }
@@ -104,10 +104,7 @@ int					main(int argc, char **argv)
 		return (0);
 	a = ft_stack_new(opt->argc);
 	if (!ft_get_args(a, opt))
-	{
-		ft_stack_free(&a);
-		return (ft_opt_free(&opt));
-	}
+		return (ft_push_swap_error(&a, opt));
 	if (a->top == -1)
 	{
 		ft_stack_free(&a);

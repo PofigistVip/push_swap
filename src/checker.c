@@ -21,7 +21,7 @@ static int			ft_checker_error(t_stack **a, t_checker_options	*opt)
 	if (a != NULL)
 		ft_stack_free(a);
 	if (opt != NULL)
-		free(opt);
+		ft_opt_free(&opt);
 	ft_putstr_fd("Error\n", 2);
 	return (0);
 }
@@ -105,7 +105,7 @@ int					main(int argc, char **argv)
 	opt->is_checker = 1;
 	a = ft_stack_new(opt->argc);
 	if (!ft_get_args(a, opt))
-		return (ft_checker_error(&a, 0));
+		return (ft_checker_error(&a, opt));
 	if (a->top == -1)
 	{
 		ft_stack_free(&a);
@@ -117,6 +117,5 @@ int					main(int argc, char **argv)
 	ft_putstr((ft_solved(a, b)) ? "OK\n" : "KO\n");
 	ft_stack_free(&a);
 	ft_stack_free(&b);
-	free(opt);
-	return (0);
+	return (ft_opt_free(&opt));
 }
