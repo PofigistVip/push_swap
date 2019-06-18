@@ -12,6 +12,7 @@
 
 #ifndef FT_STACK_H
 # define FT_STACK_H
+
 typedef struct	s_stack
 {
 	int		*stack;
