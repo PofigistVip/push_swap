@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_markups_1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/18 10:16:59 by larlyne           #+#    #+#             */
+/*   Updated: 2019/06/18 10:17:01 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "ft_instructions.h"
 #include "ft_stack.h"
@@ -32,7 +44,8 @@ void	ft_greater_markup_core(t_stack *a, t_stack *b, t_lstr *lstr)
 	ft_markup_marks(a, markup_head_i, &ft_greater_than);
 	markup_size = ft_stack_marks_count(a);
 	while (ft_stack_marks_count(a) != a->top + 1)
-		if (a->top >= 1 && (ft_greater_markup_core_inner(a, b, lstr, &markup_size) == 1))
+		if (a->top >= 1 &&
+			(ft_greater_markup_core_inner(a, b, lstr, &markup_size) == 1))
 			;
 		else if (a->marks[a->top] == 1)
 			ft_inst_ra(a, b, lstr);
@@ -71,7 +84,8 @@ void	ft_index_markup_core(t_stack *a, t_stack *b, t_lstr *lstr)
 	ft_markup_marks(a, markup_head_i, &ft_index_than);
 	markup_size = ft_stack_marks_count(a);
 	while (ft_stack_marks_count(a) != a->top + 1)
-		if (a->top >= 1 && (ft_greater_markup_core_inner(a, b, lstr, &markup_size) == 1))
+		if (a->top >= 1 &&
+			(ft_greater_markup_core_inner(a, b, lstr, &markup_size) == 1))
 			;
 		else if (a->marks[a->top] == 1)
 			ft_inst_ra(a, b, lstr);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stack_1.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/18 10:17:36 by larlyne           #+#    #+#             */
+/*   Updated: 2019/06/18 10:17:39 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <string.h>
 #include "libft.h"
@@ -34,7 +46,7 @@ int				ft_stack_contains(t_stack *stack, int numb)
 	if (stack)
 	{
 		i = -1;
-		while (++i <=stack->top)
+		while (++i <= stack->top)
 			if (stack->stack[i] == numb)
 				return (1);
 	}
@@ -65,8 +77,10 @@ t_stack			*ft_stack_copy(t_stack *stack)
 	new_stack->top = stack->top;
 	if (new_stack->top != -1)
 	{
-		ft_memmove(new_stack->stack, stack->stack, (new_stack->top + 1) * sizeof(int));
-		ft_memmove(new_stack->marks, stack->marks, (new_stack->top + 1) * sizeof(char));
+		ft_memmove(new_stack->stack, stack->stack,
+			(new_stack->top + 1) * sizeof(int));
+		ft_memmove(new_stack->marks, stack->marks,
+			(new_stack->top + 1) * sizeof(char));
 	}
 	return (new_stack);
 }

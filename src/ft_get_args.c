@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_args.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/18 10:16:13 by larlyne           #+#    #+#             */
+/*   Updated: 2019/06/18 10:16:16 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
@@ -43,7 +54,7 @@ char				**ft_splited_args(int *argc, char **argv)
 	return (splited);
 }
 
-t_checker_options 	*ft_get_opt(int argc, char **argv, int checker)
+t_checker_options	*ft_get_opt(int argc, char **argv, int checker)
 {
 	t_checker_options	*opt;
 

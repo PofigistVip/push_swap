@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_markups.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/18 10:16:51 by larlyne           #+#    #+#             */
+/*   Updated: 2019/06/18 10:16:55 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_instructions.h"
@@ -76,7 +87,7 @@ void	ft_markup_marks(t_stack *a, int markup_head_i,
 	int		first;
 	int		current;
 
-	j =  markup_head_i;
+	j = markup_head_i;
 	first = a->stack[j];
 	a->marks[j] = 1;
 	current = first;

@@ -17,7 +17,7 @@
 #include "ft_stack.h"
 #include "ft_push_swap.h"
 
-int					ft_push_swap_error(t_stack **a, t_checker_options	*opt)
+int					ft_push_swap_error(t_stack **a, t_checker_options *opt)
 {
 	if (a != NULL)
 		ft_stack_free(a);

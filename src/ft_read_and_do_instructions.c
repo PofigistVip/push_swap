@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_read_and_do_instructions.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/18 10:17:20 by larlyne           #+#    #+#             */
+/*   Updated: 2019/06/18 10:17:23 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -92,6 +103,6 @@ int		ft_read_and_do_instructions(t_stack *a, t_stack *b,
 		ok = ft_do_instruction(a, b, instructions[i++]);
 		if (opt->debug)
 			ft_show_debug(a, b, instructions[i - 1], 0);
-	}	
+	}
 	return (ft_read_free(a, b, instructions, ok));
 }
