@@ -30,6 +30,8 @@ t_lstr	*ft_alg_greater(t_stack *a, t_stack *b)
 	int		*min;
 	t_lstr	*lstr;
 
+	if (a == NULL || b == NULL)
+		return (NULL);
 	lstr = ft_lstr_new_empty();
 	ft_greater_markup_core(a, b, lstr);
 	while (b->top != -1)
@@ -48,6 +50,8 @@ t_lstr	*ft_alg_index(t_stack *a, t_stack *b)
 	int		*min;
 	t_lstr	*lstr;
 
+	if (a == NULL || b == NULL)
+		return (NULL);
 	lstr = ft_lstr_new_empty();
 	ft_index_markup_core(a, b, lstr);
 	while (b->top != -1)
@@ -67,6 +71,8 @@ int		ft_lstr_count_chars(t_lstr *lstr, char c)
 	char	*ptr;
 	int		i;
 
+	if (lstr == NULL)
+		return (0);
 	ptr = lstr->str;
 	i = 0;
 	counter = 0;
